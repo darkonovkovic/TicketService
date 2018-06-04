@@ -1,0 +1,135 @@
+html {
+   font-size: 10px !important;
+}
+
+.body {
+    font-size: 1.6rem !important;
+    font-family: 'Lato', Arial, Helvetica, sans-serif !important;
+    color: #0a1925 !important;
+}
+
+.header-wrapper {
+    width:100% !important;
+    background-color: #0a1925 !important;
+    padding: 1rem 0 1rem 0 !important;;
+}
+
+.header-container {
+    box-sizing: border-box;
+}
+
+.header-container h1 {
+    font-size: 4.5rem !important;
+    font-weight: 300 !important;
+    font-style: italic !important;
+    color: #fff !important;
+    padding-bottom: 3rem;
+    
+}
+
+.form-signin {
+    margin: 0 auto !important;
+    max-width: 330px !important;
+    padding: 15px !important;
+    margin-top: 6rem !important;
+}
+
+.form-signin-heading {
+    color: #0a1925 !important;
+    padding-bottom: 2rem;
+}
+
+#operator-username,
+#admin-username {
+    color: #fff;
+}
+
+.separator {
+    color: #fff;
+    padding: 0 1rem 0 1rem;
+}
+
+.logged-in {
+    box-sizing: border-box;
+    margin-top: 3rem;
+    text-align: right;
+}
+
+#logout {
+    border-radius: .6rem !important;
+    color: #0a1925;
+    padding: .5rem;
+}
+
+.logout-form {
+    display: inline-block;
+}
+
+.avatar img {
+    height: 55px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+    background-color: #fff;
+}
+
+#main {
+    width: 900px;
+    margin: 0 auto;
+}
+/*----------NAV-----------*/
+
+.nav {
+    text-align: center;
+    margin-left: 4rem;
+}
+
+.nav-btn {
+    text-transform: uppercase !important;
+    margin: 0 2rem;
+    padding: 1rem 0;
+}
+
+.nav-btn .nav-link {
+    font-size: 1.5rem !important;
+}
+
+#search_form {
+    margin-top: 30px;
+}
+
+#updateUserPanelGrid {
+    max-width: 500px;
+}
+
+.ui-state-disabled {
+    color: #6A6A6A !important;
+    opacity:1.00 !important;
+    filter:Alpha(Opacity=100);
+    background-image:none;
+}
+
+@media only screen and (max-width: 768px) {
+    .header-container {
+        text-align: center;
+    }
+    
+    .header-container h1 {
+        padding-bottom: 0;
+    }
+    
+    .logged-in {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .nav {
+        margin: 0;
+    }
+    
+    .nav-btn {
+        margin: 0 .5rem;
+    }
+    
+    
+}
