@@ -1,6 +1,7 @@
 package controllers;
 
 import beans.Group;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,7 +15,9 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @ManagedBean
@@ -147,11 +150,11 @@ public class GroupController {
             String query = "select * from ticket_service.group where idgroup=" + id;
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-
+            String grName = "No group";
             while (rs.next()) {
-                groupName = rs.getString("subject");
+                grName = rs.getString("subject");
             }
-            return groupName;
+            return grName;
         } catch (SQLException ex) {
             System.err.println("Error");
         }
@@ -184,8 +187,38 @@ public class GroupController {
         }
     }
 
+    public void closeTicket(int idTicket) {
+        try {
+            Connection conn = DriverManager.getConnection(db.DB.connectionString, db.DB.user, db.DB.password);
+            Statement stmt = conn.createStatement();
+            String query = "update tickets set idgroup = 1 where id_ticket = " + idTicket;
+            stmt.executeUpdate(query);
+            String query1 = "update tickets set fk_idstatus = 3 where id_ticket = " + idTicket; 
+            stmt.executeUpdate(query1);
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    // Close ALL Tickets from Group
+    public void closeTicketsFromGroup(int id) {
+        try {
+            Connection conn = DriverManager.getConnection(db.DB.connectionString, db.DB.user, db.DB.password);
+            Statement stmt = conn.createStatement();
+            String query = "select * from tickets where idgroup =" + id;
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                int idTicket = rs.getInt("id_ticket");
+                closeTicket(idTicket);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     // DELETE GROUP
-    public void deleteGroup(int id) {
+    public void deleteGroup(int id) throws IOException {
+        closeTicketsFromGroup(id);
         try {
             Connection conn = DriverManager.getConnection(db.DB.connectionString, db.DB.user, db.DB.password);
             Statement stmt = conn.createStatement();
@@ -208,7 +241,14 @@ public class GroupController {
         } catch (SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            reload();
             clear();
         }
+    }
+    
+//    RELOADS PAGE
+    public void reload() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
     }
 }
