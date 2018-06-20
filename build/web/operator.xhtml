@@ -52,8 +52,6 @@
                                 <b:navCommandLink style="font-weight: 700;" class="nav-link" value="Create Group" href="#" onclick ="PF('createGroupDialog').show();" />
                                 <b:navCommandLink style="font-weight: 700;" class="nav-link" value="Delete Group" href="#" onclick ="PF('deleteGroupDialog').show();"></b:navCommandLink>
                             </b:dropButton>
-
-                           
                         </h:form>
                     </b:column>
 
@@ -87,7 +85,7 @@
                                 <p:selectOneMenu style="margin: .5rem;"  value="#{userController.idCity}" >
                                     <f:selectItems value="#{cityController.allCities}" var="city" itemValue="#{city.idCity}" itemLabel="#{city.name}" />             
                                 </p:selectOneMenu>
-                                <p:commandButton style="margin: .5rem;" value="Create" update=":create-form" action="#{userController.insertUser}"  />
+                                <p:commandButton style="margin: .5rem;" value="Create" update=":create-form" action="#{userController.insertUser}" />
                                 <p:commandButton style="margin: .5rem;" value="Cancel" immediate="true" onclick="createDialog.hide()">
                                     <p:resetInput target=":createDialog" />
                                 </p:commandButton>
@@ -141,6 +139,7 @@
                         </h:form>
                     </p:dialog>
 
+
                     <!-- DELETE GROUP --> 
 
 
@@ -164,8 +163,6 @@
             </b:container>
         </div>
 
-
-
         <!-- USER TABELA -->
 
         <b:container>
@@ -173,7 +170,6 @@
                 <h:form id="form-table" style="margin-top: 5rem; position: relative;">
                     <b:dataTable rendered="#{userController.renderUserTable}" id="searchTable"  value="#{userController.allUsers}" style="width: 100%;" responsive="true"  var="user" excel="true" searching="true" csv="true" pdf="true" columnVisibility="true" copy="true" print="true">
                         <f:facet name="header" >
-
                             <tr>
                                 <th>User ID</th>
                                 <th>First name</th>
@@ -282,7 +278,7 @@
                 <!-- TICKET TABLE -->
 
                 <h:form id="ticket-table" style="margin-top: 5rem;">
-                    <b:dataTable rendered="#{ticketController.renderTicketTable}" value="#{ticketController.allTickets}" id="allTickets" style="width: 100%;" responsive="true"  var="tickets" excel="true" searching="true" csv="true" pdf="true" columnVisibility="true" copy="true" print="true">
+                    <b:dataTable rendered="#{ticketController.renderTicketTable}"  value="#{ticketController.allTickets}" id="allTickets" style="width: 100%;" responsive="true"  var="tickets" excel="true" searching="true" csv="true" pdf="true" columnVisibility="true" copy="true" print="true">
                         <f:facet name="header">
                             <tr>
                                 <th>#{ticketController.displayName()}</th>
@@ -339,7 +335,7 @@
                             <h:outputText id="display" /><h:outputText value="" />
 
 
-                            <p:commandButton style="margin: .5rem;" value="Update" actionListener="#{ticketController.updateTicket()}" action="#{ticketController.listUserTickets(ticketController.currentUser.id)}" oncomplete="PF('editTicketDialog').hide();" update=":ticket-table" />
+                            <p:commandButton style="margin: .5rem;" value="Update" actionListener="#{ticketController.updateTicket()}" action="#{ticketController.listTickets(ticketController.currentUser.id)}" oncomplete="PF('editTicketDialog').hide();" update=":ticket-table" />
 
                             <p:commandButton style="margin: .5rem; float: right" value="Close" oncomplete="PF('editTicketDialog').hide();" actionListener="#{ticketController.clear()}" />
                         </h:panelGrid>
